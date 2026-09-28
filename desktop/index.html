@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local MCP Studio</title><link rel="stylesheet" href="app.css"></head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark" aria-hidden="true">M</span><div><strong>Local MCP Studio</strong><span>本地项目 · 原生 MCP · Arena</span></div></div>
+    <div id="connection" class="connection" role="status" aria-live="polite"><span class="dot stopped"></span><span>尚未启动</span></div>
+  </header>
+  <main>
+    <section class="workspace-card" aria-labelledby="workspace-title">
+      <div><p class="eyebrow">WORKSPACE</p><h1 id="workspace-title">把本地项目安全地交给你的 AI Connector</h1><p id="workspace-path" class="workspace-path">尚未选择工作目录</p></div>
+      <button id="choose-workspace" class="secondary">选择工作目录</button>
+    </section>
+    <section class="workflow" aria-label="MCP Bridge workflow">
+      <article class="step" data-step="1"><div class="step-number">1</div><div><h2>启动本地 MCP</h2><p>服务只监听本机回环地址，工具会被限制在当前工作目录。</p><button id="start-bridge" class="primary">启动本地服务</button></div><span id="bridge-badge" class="badge">等待工作目录</span></article>
+      <article class="step" data-step="2"><div class="step-number">2</div><div><h2>建立安全隧道</h2><p>Cloudflare Quick Tunnel 让云端 MCP Connector 可访问本机服务。</p><button id="start-tunnel" class="primary" disabled>启动 Cloudflare Tunnel</button><button id="stop-tunnel" class="text-button" disabled>停止隧道</button></div><span id="tunnel-badge" class="badge">未启动</span></article>
+      <article class="step" data-step="3"><div class="step-number">3</div><div><h2>连接网页 AI</h2><p>复制下方地址，在支持 Custom MCP 的网页 AI 中添加 Connector。</p><div class="mcp-url"><code id="mcp-url">先启动本地 MCP 服务</code><button id="copy-url" aria-label="复制 MCP 地址" disabled>复制</button></div></div><span id="url-badge" class="badge">本地</span></article>
+    </section>
+    <section class="message-panel" aria-label="Bridge status"><p class="eyebrow">STATUS</p><p id="message" role="status" aria-live="polite">Choose a workspace to begin.</p></section>
+    <section class="message-panel" aria-labelledby="demo-auth-title"><p class="eyebrow">LOCAL DEMO</p><h2 id="demo-auth-title">演示账号流程</h2><p>仅在本机生成并保存演示账号，用于验证“注册后自动登录”的 JavaScript 流程，不连接任何第三方账号系统。</p><p id="demo-auth-status" role="status" aria-live="polite">演示账号尚未创建</p><button id="demo-register" class="secondary">自动创建演示账号</button><button id="demo-login" class="primary">自动登录演示账号</button></section>
+    <section class="arena-section" aria-labelledby="arena-title"><div class="arena-heading"><div><p class="eyebrow">WEB AI</p><h2 id="arena-title">Arena Agent</h2><p>登录后，在其 Connector 设置中粘贴 MCP 地址。工具调用与结果应由 Arena 的原生 MCP 通道处理。</p></div><button id="reload-arena" class="secondary">重新载入</button></div><webview id="arena" src="https://arena.ai/agent" partition="persist:arena" aria-label="Arena Agent"></webview></section>
+  </main>
+  <dialog id="approval-dialog" aria-labelledby="approval-title"><form method="dialog"><p class="eyebrow">WRITE APPROVAL</p><h2 id="approval-title">允许应用此补丁？</h2><p>远程模型请求修改当前工作目录。请审阅统一 diff 后再决定。</p><pre id="approval-patch"></pre><div class="dialog-actions"><button id="reject-approval" value="cancel" class="secondary">拒绝</button><button id="approve-approval" value="default" class="danger">批准并应用</button></div></form></dialog>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+import { contextBridge, ipcRenderer } from 'electron';
+contextBridge.exposeInMainWorld('mcpStudio',{
+  chooseWorkspace:()=>ipcRenderer.invoke('workspace:choose'), startBridge:()=>ipcRenderer.invoke('bridge:start'), stopBridge:()=>ipcRenderer.invoke('bridge:stop'), startTunnel:()=>ipcRenderer.invoke('tunnel:start'), stopTunnel:()=>ipcRenderer.invoke('tunnel:stop'), copyMcpUrl:()=>ipcRenderer.invoke('mcp:copy'), state:()=>ipcRenderer.invoke('bridge:state'), demoState:()=>ipcRenderer.invoke('demo-auth:state'), demoRegister:()=>ipcRenderer.invoke('demo-auth:register'), demoLogin:()=>ipcRenderer.invoke('demo-auth:login'), respondApproval:(id:string,approved:boolean)=>ipcRenderer.invoke('approval:respond',id,approved), onState:(listener:(state:unknown)=>void)=>ipcRenderer.on('bridge:state',(_event,state)=>listener(state)), onApproval:(listener:(request:unknown)=>void)=>ipcRenderer.on('approval:requested',(_event,request)=>listener(request))
+});

@@ -1,0 +1,11 @@
+{
+  "manifest_version":3,
+  "name":"Arena Local Bridge",
+  "version":"0.1.0",
+  "description":"User-approved read-only project tools for Arena conversations.",
+  "permissions":["storage","activeTab","scripting"],
+  "host_permissions":["http://127.0.0.1/*"],
+  "background":{"service_worker":"background.js"},
+  "action":{"default_popup":"popup.html"},
+  "content_scripts":[{"matches":["https://arena.ai/*","https://www.arena.ai/*"],"js":["content.js"],"run_at":"document_idle"}]
+}

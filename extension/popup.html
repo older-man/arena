@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Arena Local Bridge</title><link rel="stylesheet" href="popup.css"></head>
+<body><header><h1>Arena Local Bridge</h1><span>只读工具</span></header>
+<main><form id="settings">
+<label for="token">Bridge 令牌</label><input id="token" type="password" autocomplete="off" required minlength="32">
+<label for="port">本机端口</label><input id="port" type="number" min="1024" max="65535" value="4318" required>
+<label class="toggle" for="autoMode"><input id="autoMode" type="checkbox"><span>自动执行模型工具调用（不拼接项目内容）</span></label>
+<label class="toggle" for="hideProtocol"><input id="hideProtocol" type="checkbox"><span>隐藏 Arena 中的工具协议消息</span></label>
+<details><summary>DOM 选择器</summary><label for="replies">模型回复</label><input id="replies"><label for="composer">输入框</label><input id="composer"><label for="send">发送按钮</label><input id="send"></details>
+<div class="actions"><button type="submit">保存配置</button><button id="health" type="button">检查连接</button><button id="initTools" type="button">初始化本地工具</button></div></form>
+<section><div class="actions"><h2>待执行调用</h2><button id="scan">检测回复</button></div><label for="call">tool_call JSON</label><textarea id="call" rows="7" spellcheck="false"></textarea><button id="execute">批准并执行</button></section>
+<section><h2>工具结果</h2><label for="result">tool_result JSON</label><textarea id="result" rows="7" readonly></textarea><div class="actions"><button id="fill" disabled>回填 Arena</button><button id="copy" disabled>复制结果</button></div></section>
+<output id="status" role="status" aria-live="polite">尚未连接</output><pre id="timing"></pre></main><script src="popup.js"></script></body></html>
